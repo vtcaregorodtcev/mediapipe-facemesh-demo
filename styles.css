@@ -1,0 +1,78 @@
+.input_video {
+  display: none;
+}
+
+.output_canvas {
+  transform: scaleX(-1);
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.new-story {
+  z-index: 100;
+  position: absolute;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.new-story[disabled="true"] {
+  pointer-events: none;
+}
+
+.new-story[disabled="true"] .plus {
+  display: none;
+}
+
+.new-story[disabled="false"] .loading {
+  display: none;
+}
+
+.filters {
+  position: absolute;
+  left: 15px;
+  z-index: 99;
+  display: flex;
+  bottom: 15px;
+  overflow: scroll;
+  width: 100%;
+  justify-content: center;
+}
+
+.filters div:not(.wrapper) {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.filters .wrapper {
+  display: flex;
+}
+
+.filters img {
+  width: 100%;
+}
