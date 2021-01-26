@@ -26,6 +26,8 @@ function onResults(results) {
     }
   }
   canvasCtx.restore();
+
+  setTimeout(() => faceMesh.send({ image: videoElement }), 40);
 }
 
 const faceMesh = new FaceMesh({
@@ -40,12 +42,30 @@ faceMesh.setOptions({
 
 faceMesh.onResults(onResults);
 
-const camera = new Camera(videoElement, {
-  onFrame: async () => faceMesh.send({ image: videoElement }),
-  width, height
-});
+navigator.getUserMedia = (
+  navigator.getUserMedia
+  || navigator.webkitGetUserMedia
+  || navigator.mozGetUserMedia
+  || navigator.msGetUserMedia
+  || (navigator.mediaDevices ? navigator.mediaDevices.getUserMedia : undefined)
+);
 
-camera.start();
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({ video: { width, height }, }, function successCallback(stream) {
+
+    if (videoElement.mozSrcObject !== undefined) {
+      videoElement.mozSrcObject = stream;
+    } else {
+      videoElement.srcObject = stream;
+    };
+
+    videoElement.play();
+
+    faceMesh.send({ image: videoElement });
+  }, () => alert('no camera allowed'));
+} else {
+  alert('no camera support');
+}
 
 function drawMesh(landmarks) {
   drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
