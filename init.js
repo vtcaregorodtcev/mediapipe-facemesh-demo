@@ -21,4 +21,6 @@ canvas.setAttribute('height', `${actualH}px`);
 
 canvas.classList.add('output_canvas');
 
+window.canvasElement = canvas;
+
 document.querySelector('.content').append(canvas);
